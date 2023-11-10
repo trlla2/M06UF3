@@ -1,0 +1,55 @@
+DROP TABLE IF EXISTS savedgames_cells;
+DROP TABLE IF EXISTS saved_games;
+DROP TABLE IF EXISTS plants_users;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS plants;
+
+CREATE TABLE plants(
+	id_plant INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	plant VARCHAR(24) NOT NULL,
+	time FLOAT NOT NULL,
+	quantity INT NOT NULL,
+	sell DECIMAL(9,2) NOT NULL,
+	buy DECIMAL(9,2) NOT NULL,
+	season INT
+	
+);
+
+CREATE TABLE `users`(
+	id_user INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	user VARCHAR(12),
+	password CHAR(32)
+);
+
+CREATE TABLE plants_users(
+	id_plant_user INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+	id_plant INTEGER NOT NULL,
+	id_user INTEGER NOT NULL,
+	
+	FOREIGN KEY (id_plant) REFERENCES plants( id_plant),
+	FOREIGN KEY (id_user) REFERENCES users( id_user)
+);
+
+CREATE TABLE saved_games(
+	id_savedgame INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,
+	time FLOAT NOT NULL,
+	size INTEGER NOT NULL,
+	money DECIMAL(9,2) NOT NULL,
+	date DATETIME DEFAULT CURRENT_TIMESTAMP,
+	id_user INTEGER NOT NULL,
+	
+	FOREIGN KEY (id_user) REFERENCES users( id_user)
+);
+
+CREATE TABLE savedgames_cells(
+	id_savedgame_cell INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,
+	x INTEGER NOT NULL,
+	y INTEGER NOT NULL,
+	time FLOAT NOT NULL,
+	id_plant INTEGER NOT NULL,
+	id_savedgame INTEGER NOT NULL,
+	
+	FOREIGN KEY (id_plant) REFERENCES plants( id_plant),
+	FOREIGN KEY (id_savedgame) REFERENCES saved_games( id_savedgame)
+	
+);
