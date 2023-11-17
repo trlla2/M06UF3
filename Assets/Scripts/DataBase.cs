@@ -20,8 +20,9 @@ public class Plant
 }
 public class DataBase : MonoBehaviour
 {
-    
-    private  Plant[] plants;
+
+    private IDataReader reader;
+
     private IDbConnection conn;
     private string dbName = "entifarm.db";
 
@@ -29,32 +30,42 @@ public class DataBase : MonoBehaviour
     {
         conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
         conn.Open();
+    }
+
+    private void Update()
+    {
         GetPlants();
     }
 
-    public void GetPlants()
+    ArrayList GetPlants()
     {
+        ArrayList plants = new ArrayList();
+
         IDbCommand cmd = conn.CreateCommand();
         cmd.CommandText = "SELECT * FROM plants"; 
         IDataReader dataReader = cmd.ExecuteReader();
-        int index = 0;
-        while (dataReader.Read())
+        if (reader == null)
         {
-            Plant p = new Plant();
-
-            p.id = dataReader.GetInt32(0);
-            p.name = dataReader.GetString(1); 
-            p.time = dataReader.GetFloat(2);
-            p.quantity = dataReader.GetInt32(3);
-            p.sell = dataReader.GetFloat(4);
-            p.buy = dataReader.GetFloat(5);
-            if (!dataReader.IsDBNull(6))
-            {
-                p.season = dataReader.GetInt32(6);
-            }
-
-            plants[index] = p;
-            index ++;
+            return plants;
         }
+
+        while (reader.Read())
+        {
+
+            Plant c = new Plant();
+
+            c.id = reader.GetInt32(0);
+            c.name = reader.GetString(1);
+            c.time = reader.GetFloat(2);
+            c.quantity = reader.GetInt32(3);
+            c.sell = reader.GetFloat(4);
+            c.buy = reader.GetFloat(5);
+            //c.season = reader.GetInt32(6); 
+
+            plants.Add(c);
+
+        }
+
+        return plants;
     }
 }

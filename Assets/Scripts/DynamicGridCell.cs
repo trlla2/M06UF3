@@ -5,39 +5,35 @@ using UnityEngine.UI;
 
 public class DynamicGridCell : MonoBehaviour
 {
-    public GameObject buttonPrefab;
-    public int rows;
-    public int columns;
-    public float cellSize;
-    public float spacing;
+    [SerializeField]
+    private GameObject buttonPrefab;
+    [SerializeField]
+    private int rows;
+    [SerializeField]
+    private int columns;
 
     void Start()
     {
-        GenerateGridCell();
-    }
-
-    void GenerateGridCell()
-    {
-        GridLayoutGroup gridLayout = GetComponent<GridLayoutGroup>();
-
-        // Set the cell size and spacing of the grid layout
-        gridLayout.cellSize = new Vector2(cellSize, cellSize);
-        gridLayout.spacing = new Vector2(spacing, spacing);
-
-        // Calculate the total number of buttons
-        int totalButtons = rows * columns;
-
-        for (int i = 0; i < totalButtons; i++)
+        for (int x = 0; x < rows; x++)
         {
-            // Instantiate the button prefab
-            GameObject button = Instantiate(buttonPrefab, transform);
-
-            // Set the button's position in the grid layout
-            int row = i / columns;
-            int column = i % columns;
-            RectTransform buttonRectTransform = button.GetComponent<RectTransform>();
-            buttonRectTransform.localPosition = new Vector3(column * (cellSize + spacing), -row * (cellSize + spacing), 0);
+            for (int y = 0; y < columns; y++)
+            {
+                GameObject button = Instantiate(buttonPrefab, transform);
+                button.GetComponent<Butonbehaviour>().CellPosition(x+1,y+1);
+            }
         }
     }
+
+    public void AddCells()
+    {
+        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y + 200, transform.localScale.z);
+        columns++;
+        for (int x = 0; x < rows; x++)
+        {
+            GameObject button = Instantiate(buttonPrefab, transform);
+            button.GetComponent<Butonbehaviour>().CellPosition(x + 1, columns);
+        }
+    }
+
 }
    
