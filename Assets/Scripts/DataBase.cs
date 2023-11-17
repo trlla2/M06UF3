@@ -20,12 +20,23 @@ public class Plant
 }
 public class DataBase : MonoBehaviour
 {
-
+    public static DataBase DB;
     private IDataReader reader;
 
     private IDbConnection conn;
     private string dbName = "entifarm.db";
-
+    private void Awake()
+    {
+        if(DB != null && DB != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            DB = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
     private void Start()
     {
         conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
