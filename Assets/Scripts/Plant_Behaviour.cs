@@ -22,6 +22,6 @@ public class Plant_Behaviour : MonoBehaviour
        // Debug.Log(DataBase.DB.plants[idPlant].quantity);
         quantityPlantText.text =  DataBase.DB.plants[idPlant].quantity.ToString();
 
-       plantText.text = DataBase.DB.plants[idPlant].name;
+        plantText.text = DataBase.DB.plants[idPlant].name;
     }
 }
