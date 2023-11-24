@@ -21,9 +21,10 @@ public class Plant
 public class DataBase : MonoBehaviour
 {
     public static DataBase DB;
+    private IDbConnection conn;
+
     private IDataReader reader;
 
-    private IDbConnection conn;
     private string dbName = "entifarm.db";
     private void Awake()
     {
@@ -41,20 +42,18 @@ public class DataBase : MonoBehaviour
     {
         conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
         conn.Open();
-    }
-
-    private void Update()
-    {
         GetPlants();
     }
 
-    ArrayList GetPlants()
+  
+
+    public ArrayList GetPlants()
     {
         ArrayList plants = new ArrayList();
 
         IDbCommand cmd = conn.CreateCommand();
-        cmd.CommandText = "SELECT * FROM plants"; 
-        IDataReader dataReader = cmd.ExecuteReader();
+        cmd.CommandText = "SELECT * FROM plants";
+        reader = cmd.ExecuteReader();
         if (reader == null)
         {
             return plants;
@@ -71,8 +70,10 @@ public class DataBase : MonoBehaviour
             c.quantity = reader.GetInt32(3);
             c.sell = reader.GetFloat(4);
             c.buy = reader.GetFloat(5);
-            //c.season = reader.GetInt32(6); 
-
+            if (!reader.IsDBNull(6))
+            {
+                c.season = reader.GetInt32(6); 
+            }
             plants.Add(c);
 
         }

@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class Plants_Behaviour : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject PlantPrefab;
-    [SerializeField]
+    //[SerializeField]
+   // private GameObject PlantPrefab;
+    
     private int plantsCount;
     void Start()
     {
-        for(int i = 0; i < plantsCount; i++)
-        {
-                GameObject Plant = Instantiate(PlantPrefab, transform);
-                
-        }
+        plantsCount = DataBase.DB.GetPlants().Count;
+        Debug.Log(plantsCount);
+        //for (int i = 0; i < plantsCount; i++)
+        //{
+        //        GameObject Plant = Instantiate(PlantPrefab, transform);
+        //}
     }
 
 }
