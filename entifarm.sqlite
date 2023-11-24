@@ -15,11 +15,17 @@ CREATE TABLE plants(
 	
 );
 
+INSERT INTO plants (plant, time, quantity, sell, buy) VALUES
+	("Nabo", 30.0, 12, 1, 2);
+
 CREATE TABLE `users`(
 	id_user INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	user VARCHAR(12),
 	password CHAR(32)
 );
+INSERT INTO users (user,password) VALUES
+("YULEN69","CULOPOLLO");
+
 
 CREATE TABLE plants_users(
 	id_plant_user INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -29,6 +35,8 @@ CREATE TABLE plants_users(
 	FOREIGN KEY (id_plant) REFERENCES plants( id_plant),
 	FOREIGN KEY (id_user) REFERENCES users( id_user)
 );
+INSERT INTO plants_users (id_plant, id_user) VALUES 
+(1,1);
 
 CREATE TABLE saved_games(
 	id_savedgame INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,

@@ -756,7 +756,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
+  m_CellSize: {x: 180, y: 125}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -772,6 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e88e0b86a8f1e4dac3b961f37581a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlantPrefab: {fileID: 726532931965220716, guid: e7252d7d3bb96654095e39b5c25d8606, type: 3}
 --- !u!1 &475952121
 GameObject:
   m_ObjectHideFlags: 0
