@@ -16,7 +16,8 @@ CREATE TABLE plants(
 );
 
 INSERT INTO plants (plant, time, quantity, sell, buy) VALUES
-	("Nabo", 30.0, 12, 1, 2);
+	("Nabo", 30.0, 12, 1, 2),
+	("Platano",60,6, 4,2 );
 
 CREATE TABLE `users`(
 	id_user INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
