@@ -1,20 +1,19 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manager_Behaviour : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static Manager_Behaviour mainManager;
+    public static GameManager gameManager;
     private void Awake()
     {
-        if (mainManager != null && mainManager != this)
+        if(gameManager != null && gameManager != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            mainManager = this;
+            gameManager = this; 
             DontDestroyOnLoad(this.gameObject);
         }
     }
