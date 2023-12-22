@@ -1,21 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager gameManager;
+    public static GameManager _GM;
+
+    private int idHoldingPlant = 0;
+    private float currentMoney = 9999.0f; 
+    [SerializeField]
+    private TMP_Text moneyText;
+
     private void Awake()
     {
-        if(gameManager != null && gameManager != this)
+        if(_GM != null && _GM != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            gameManager = this; 
+            _GM = this; 
             DontDestroyOnLoad(this.gameObject);
         }
+    }
+    private void Start()
+    {
+        //current money = DataBase.DB.getUserMoney();
+    }
+    private void LateUpdate()
+    {
+        moneyText.text = currentMoney.ToString();
+    }
+    public void setHoldingPlant(int id)
+    {
+        idHoldingPlant = id;
+        
+    }
+
+    public void CollectPlant(float price)
+    {
+        currentMoney += price;
     }
 
 

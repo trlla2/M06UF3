@@ -32,7 +32,7 @@ public class DynamicGridCell : MonoBehaviour
             for (int y = 0; y < columns; y++)
             {
                 GameObject button = Instantiate(buttonPrefab, transform);
-                button.GetComponent<Butonbehaviour>().CellPosition(x+1,y+1);
+                button.GetComponent<Cell_Behaviour>().CellPosition(x+1,y+1);
             }
         }
     }
@@ -50,7 +50,7 @@ public class DynamicGridCell : MonoBehaviour
             for (int x = 0; x < columns; x++)
             {
                 GameObject button = Instantiate(buttonPrefab, transform);
-                button.GetComponent<Butonbehaviour>().CellPosition(rows, x +1);
+                button.GetComponent<Cell_Behaviour>().CellPosition(rows, x +1);
             }
             currentLandsUpgrade++;
         }

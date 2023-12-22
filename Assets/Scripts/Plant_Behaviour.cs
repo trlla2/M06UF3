@@ -12,16 +12,21 @@ public class Plant_Behaviour : MonoBehaviour
     [SerializeField]
     private TMP_Text quantityPlantText;
 
+    public void Start()
+    {
+        plantText.text = DataBase.DB.plants[idPlant].name;
+    }
+    private void LateUpdate()
+    {
+        quantityPlantText.text =  DataBase.DB.plants[idPlant].quantity.ToString();
+    }
     public void SetIdPlant(int id)
     {
         idPlant = id;
     }
 
-    public void Start()
+    public void ReturnPlant()
     {
-       // Debug.Log(DataBase.DB.plants[idPlant].quantity);
-        quantityPlantText.text =  DataBase.DB.plants[idPlant].quantity.ToString();
-
-        plantText.text = DataBase.DB.plants[idPlant].name;
+        GameManager._GM.setHoldingPlant(idPlant);
     }
 }

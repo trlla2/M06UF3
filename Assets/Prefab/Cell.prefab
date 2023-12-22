@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4477393942865655610}
   - component: {fileID: 627284247486704806}
   - component: {fileID: 2579116873665847470}
-  - component: {fileID: 4872049410551266207}
+  - component: {fileID: 3137040061867637233}
   m_Layer: 5
   m_Name: Cell
   m_TagString: Untagged
@@ -123,10 +123,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4872049410551266207}
-        m_TargetAssemblyTypeName: Butonbehaviour, Assembly-CSharp
-        m_MethodName: DebugPos
-        m_Mode: 1
+      - m_Target: {fileID: 3137040061867637233}
+        m_TargetAssemblyTypeName: Cell_Behaviour, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -135,7 +135,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4872049410551266207
+--- !u!114 &3137040061867637233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,9 +144,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1296550307846829261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2256925f354cfc42ae7a959492fa115, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c4649975c0496a488596e9da71d5ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellText: {fileID: 3788653947628121154}
 --- !u!1 &5183149144925622176
 GameObject:
   m_ObjectHideFlags: 0
