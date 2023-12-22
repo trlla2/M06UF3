@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager _GM;
 
     private int idHoldingPlant = 0;
-    private float currentMoney = 9999.0f; 
+    private float currentMoney = 25.0f; 
     [SerializeField]
     private TMP_Text moneyText;
 
@@ -45,6 +45,13 @@ public class GameManager : MonoBehaviour
     {
         currentMoney += price;
     }
-    
+    public float GetMoney() 
+    {
+        return currentMoney;
+    }
+    public void BuyThings(float price)
+    {
+        currentMoney -= price;
+    }
 
 }

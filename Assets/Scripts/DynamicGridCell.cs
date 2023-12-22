@@ -13,6 +13,9 @@ public class DynamicGridCell : MonoBehaviour
     [SerializeField]
     private int columns = 4;
 
+    [SerializeField]
+    private float priceCells = 20;
+
     private int maxLandsUpgrade = 9;
     private int currentLandsUpgrade = 0;
 
@@ -39,14 +42,10 @@ public class DynamicGridCell : MonoBehaviour
 
     public void AddCells()
     {
-        if (currentLandsUpgrade < maxLandsUpgrade)
+        if (currentLandsUpgrade < maxLandsUpgrade && GameManager._GM.GetMoney() > priceCells)
         {
-            //transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y + 20, transform.localScale.z);
+            GameManager._GM.BuyThings(priceCells);
             rows++;
-            //gridLayout.constraintCount = columns;
-
-            //RemoveCells();
-
             for (int x = 0; x < columns; x++)
             {
                 GameObject button = Instantiate(buttonPrefab, transform);
@@ -57,14 +56,6 @@ public class DynamicGridCell : MonoBehaviour
         else
         {
             Debug.Log("fck that");
-        }
-    }
-
-    public void RemoveCells()
-    {
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            Destroy(this.transform.GetChild(i).gameObject);
         }
     }
 

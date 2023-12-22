@@ -176,6 +176,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 1296550307846829261, guid: 17f67d2477b61724d869b3c1be8cb2a2, type: 3}
   rows: 4
   columns: 4
+  priceCells: 20
 --- !u!114 &52742455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,7 +1319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy Land
+  m_text: Buy Cells
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2068,7 +2069,7 @@ GameObject:
   - component: {fileID: 1871939676}
   - component: {fileID: 1871939675}
   m_Layer: 5
-  m_Name: BuyLand
+  m_Name: BuyCells
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
