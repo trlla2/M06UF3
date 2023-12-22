@@ -54,6 +54,7 @@ public class Cell_Behaviour : MonoBehaviour
                 idGrowingPlant = GameManager._GM.GetHoldingPlantId();
                 if (DataBase.DB.plants[idGrowingPlant].quantity > 0)
                 {
+                    cellImage.color = new Color(1, 1, 0);
                     DataBase.DB.plants[idGrowingPlant].quantity--;
                     growingTime = DataBase.DB.plants[idGrowingPlant].time;
                     cellText.text = DataBase.DB.plants[idGrowingPlant].name;
