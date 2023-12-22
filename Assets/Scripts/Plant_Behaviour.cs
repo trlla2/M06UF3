@@ -21,12 +21,12 @@ public class Plant_Behaviour : MonoBehaviour
         quantityPlantText.text =  DataBase.DB.plants[idPlant].quantity.ToString();
     }
     public void SetIdPlant(int id)
-    {
+    { 
         idPlant = id;
     }
 
     public void ReturnPlant()
     {
-        GameManager._GM.setHoldingPlant(idPlant);
+        GameManager._GM.SetHoldingPlant(idPlant);
     }
 }

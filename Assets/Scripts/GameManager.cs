@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,16 +33,18 @@ public class GameManager : MonoBehaviour
     {
         moneyText.text = currentMoney.ToString();
     }
-    public void setHoldingPlant(int id)
+    public void SetHoldingPlant(int id)
     {
         idHoldingPlant = id;
-        
     }
-
+    public int GetHoldingPlantId()
+    {
+        return idHoldingPlant;
+    }
     public void CollectPlant(float price)
     {
         currentMoney += price;
     }
-
+    
 
 }

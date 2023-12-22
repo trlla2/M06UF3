@@ -45,6 +45,7 @@ public class DataBase : MonoBehaviour
         conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
         conn.Open();
         GetPlants();
+        GetUserPlants();
     }
    
 

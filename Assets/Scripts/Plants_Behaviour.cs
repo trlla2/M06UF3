@@ -12,8 +12,8 @@ public class Plants_Behaviour : MonoBehaviour
     private int plantsCount;
     private void Start()
     {
-        plantsCount = DataBase.DB.GetPlants().Count;
-        for (int i = 1; i < plantsCount; i++)
+        plantsCount = DataBase.DB.plants.Count;
+        for (int i = 0; i < plantsCount; i++)
         {
             GameObject Plant = Instantiate(PlantPrefab, transform);
             Plant.GetComponent<Plant_Behaviour>().SetIdPlant(i);

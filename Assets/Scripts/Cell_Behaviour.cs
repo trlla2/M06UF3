@@ -45,19 +45,20 @@ public class Cell_Behaviour : MonoBehaviour
         position.y = y;
     }
 
-    public void OnClick(int id)
+    public void OnClick()
     {
        if(!isGrowing)
        {
-            if(!isCollectible)
+            if (!isCollectible)
             {
-                // restar cantidad de plantas con la id
-
-                idGrowingPlant = id;
-                growingTime = DataBase.DB.plants[idGrowingPlant].time;
-                cellText.text = DataBase.DB.plants[idGrowingPlant].name;
-                isGrowing = true;
-
+                idGrowingPlant = GameManager._GM.GetHoldingPlantId();
+                if (DataBase.DB.plants[idGrowingPlant].quantity > 0)
+                {
+                    DataBase.DB.plants[idGrowingPlant].quantity--;
+                    growingTime = DataBase.DB.plants[idGrowingPlant].time;
+                    cellText.text = DataBase.DB.plants[idGrowingPlant].name;
+                    isGrowing = true;
+                }
             }
             else
             {
