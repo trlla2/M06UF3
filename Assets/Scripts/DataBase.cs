@@ -19,6 +19,14 @@ public class Plant
     public float buy =0f;
     public int season = 0;
 }
+
+public class User
+{
+    public int id = 0;
+    public string user = "";
+    public string password = "";
+}
+
 public class DataBase : MonoBehaviour
 {
     public static DataBase DB;
@@ -29,6 +37,7 @@ public class DataBase : MonoBehaviour
     private string dbName = "entifarm.db";
 
     public List<Plant> plants = new List<Plant>();
+    public User user = new User();
 
 
     private void Awake()
@@ -45,7 +54,7 @@ public class DataBase : MonoBehaviour
         conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
         conn.Open();
         GetPlants();
-        GetUserPlants();
+        //GetUserPlants();
     }
    
 
@@ -82,7 +91,7 @@ public class DataBase : MonoBehaviour
         return plants;
     }
 
-    public List<Plant> GetUserPlants()
+    public List<Plant> GetUserPlants(int userId)
     {
         List<Plant> userPlants = new List<Plant>();
 
@@ -108,5 +117,26 @@ public class DataBase : MonoBehaviour
         }
 
         return userPlants;
+    }
+
+    public bool GetUser(string username, string password)
+    {
+
+        IDbCommand cmd = conn.CreateCommand();
+        cmd.CommandText = "SELECT * FROM users WHERE user = \"" + username + "\" AND password = \"" + password + "\";";
+        IDataReader reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            user.id = reader.GetInt32(0);
+            user.user = reader.GetString(1);
+            user.password = reader.GetString(2);
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
