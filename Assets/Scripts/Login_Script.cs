@@ -14,23 +14,54 @@ public class Login_Script : MonoBehaviour
     [SerializeField] private Button goRegisterButton;
     [SerializeField] private GameObject loginPanel;
 
-    //[Header("Register stuff")]
-    //[SerializeField] private Button registerButton;
-    //[SerializeField] private Text registerUserText;
-    //[SerializeField] private Text registerPasswordText;
-    //[SerializeField] private Text registerRePasswordText;
+    [Header("Register stuff")]
+    [SerializeField] private Button registerButton;
+    [SerializeField] private Text registerUserText;
+    [SerializeField] private Text registerPasswordText;
+    [SerializeField] private Text registerRePasswordText;
 
-    //[SerializeField] private Button goLoginButton;
-    //[SerializeField] private GameObject registerPanel;
+    [SerializeField] private Button goLoginButton;
+    [SerializeField] private GameObject registerPanel;
 
     private void Awake()
     {
         //Listener
         loginButton.onClick.AddListener(LoginButtonClicked);
-        //registerButton.onClick.AddListener(RegisterButtonClicked);
+        registerButton.onClick.AddListener(RegisterButtonClicked);
 
-        //goLoginButton.onClick.AddListener(GoLoginButtonClicked);
-        //goRegisterButton.onClick.AddListener(GoReggisterButtonClicked);
+        goLoginButton.onClick.AddListener(GoLoginButtonClicked);
+        goRegisterButton.onClick.AddListener(GoReggisterButtonClicked);
+    }
+
+    private void GoReggisterButtonClicked()
+    {
+        loginPanel.SetActive(false);
+        registerPanel.SetActive(true);
+    }
+
+    private void GoLoginButtonClicked()
+    {
+        loginPanel.SetActive(true);
+        registerPanel.SetActive(false);
+    }
+
+    private void RegisterButtonClicked()
+    {
+        //Check if inputs are ok
+        if (registerUserText.text.ToString() != "" && registerPasswordText.text.ToString() != "" && registerRePasswordText.text.ToString() != "" && registerPasswordText.text.ToString() == registerRePasswordText.text.ToString())
+        {
+            if (!DataBase.DB.GetUser(registerUserText.text.ToString())){
+                DataBase.DB.RegisterUser(registerUserText.text.ToString(), registerPasswordText.text.ToString());
+            }
+            else
+            {
+                Debug.Log("Register failed");
+            }
+        }
+        else
+        {
+            Debug.Log("Register failed");
+        }
     }
 
     private void LoginButtonClicked()
@@ -38,12 +69,14 @@ public class Login_Script : MonoBehaviour
         //Check if inputs are ok
         if (loginUserText.text.ToString() != "" && loginPasswordText.text.ToString() != "")
         {
-            if (DataBase.DB.GetUser(loginUserText.text.ToString(), loginPasswordText.text.ToString()))
+            if (DataBase.DB.LoginUser(loginUserText.text.ToString(), loginPasswordText.text.ToString()))
             {
+                //Load Game
                 Debug.Log("Funca");
             }
             else
             {
+                //Delete Text
                 Debug.Log("aaaa");
             }
         }

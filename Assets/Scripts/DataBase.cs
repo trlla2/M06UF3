@@ -119,7 +119,7 @@ public class DataBase : MonoBehaviour
         return userPlants;
     }
 
-    public bool GetUser(string username, string password)
+    public bool LoginUser(string username, string password)
     {
 
         IDbCommand cmd = conn.CreateCommand();
@@ -138,5 +138,33 @@ public class DataBase : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public bool GetUser(string username)
+    {
+
+        IDbCommand cmd = conn.CreateCommand();
+        cmd.CommandText = "SELECT * FROM users WHERE user = \"" + username + "\";";
+        IDataReader reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            user.id = reader.GetInt32(0);
+            user.user = reader.GetString(1);
+            user.password = reader.GetString(2);
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void RegisterUser(string username, string password)
+    {
+        IDbCommand cmd = conn.CreateCommand();
+        cmd.CommandText = "INSERT INTO users (user,password) VALUES ( \"" + username + "\", \"" + password + "\");";
+        IDataReader reader = cmd.ExecuteReader();
     }
 }
