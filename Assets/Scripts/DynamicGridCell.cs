@@ -48,6 +48,7 @@ public class DynamicGridCell : MonoBehaviour
         {
             GameManager._GM.BuyThings(priceCells);
             rows++;
+            DataBase.DB.SetRows(rows);
             for (int x = 0; x < columns; x++)
             {
                 GameObject button = Instantiate(buttonPrefab, transform);

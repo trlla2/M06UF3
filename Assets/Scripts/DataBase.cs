@@ -49,9 +49,12 @@ public class DataBase : MonoBehaviour
 
     public List<Plant> plants = new List<Plant>();
     public List<Plant> userPlants = new List<Plant>();
+    public List<cell> cells = new List<cell>();
     public User user = new User();
 
     private IDataReader reader;
+
+    private int rows = 0;
 
     [Header("New Users Stats")]
     [SerializeField] private float startMoney = 25f;
@@ -73,7 +76,11 @@ public class DataBase : MonoBehaviour
         GetPlants();
         //GetUserPlants();
     }
-   
+
+    private void Start()
+    {
+        rows = startRowCell;
+    }
 
     public List<Plant> GetPlants()
     {
@@ -119,13 +126,13 @@ public class DataBase : MonoBehaviour
         while (reader.Read())
         {
             Plant c = new Plant();
-
             c.id = reader.GetInt32(0);
             c.name = reader.GetString(1);
             c.time = reader.GetFloat(2);
             c.quantity = reader.GetInt32(3);
             c.sell = reader.GetFloat(4);
             c.buy = reader.GetFloat(5);
+
             if (!reader.IsDBNull(6))
             {
                 c.season = reader.GetInt32(6);
@@ -237,6 +244,7 @@ public class DataBase : MonoBehaviour
         if (reader.Read()) 
         { 
             rows = reader.GetInt32(0);
+            this.rows = rows;
         }
 
         reader.Close();
@@ -254,6 +262,7 @@ public class DataBase : MonoBehaviour
         {
             money = reader.GetFloat(0);
         }
+        reader.Close();
 
         return money;
     }
@@ -262,12 +271,15 @@ public class DataBase : MonoBehaviour
     {
         int savedGameID = 0;
         IDbCommand cmd = conn.CreateCommand();
-        cmd.CommandText = "SELECT saved_games FROM users WHERE id_user = \"" + user.id + "\";";
+        cmd.CommandText = "SELECT id_savedgame FROM saved_games WHERE id_user = \"" + user.id + "\";";
         reader = cmd.ExecuteReader();  //GET ID SavedGame
         if (reader.Read())
         {
             savedGameID = reader.GetInt32(0);
         }
+        reader.Close();
+
+
         return savedGameID;
     }
 
@@ -275,19 +287,71 @@ public class DataBase : MonoBehaviour
     {
         cell cell = new cell();
 
+        x--;// array things
+        y--;
+
         IDbCommand cmd = conn.CreateCommand();
         cmd.CommandText = "SELECT id_savedgame_cell ,time,  id_plant FROM savedgames_cells WHERE x = " + x + " AND y = " + y + " AND id_savedgame = " + user.id_savedGame + ";";
         reader = cmd.ExecuteReader();
-
+        
 
         if (reader.Read())
         {
             cell.id = reader.GetInt32(0);
             cell.time = reader.GetFloat(1);
             cell.id_plant = reader.GetInt32(2);
+
+            cell.x = x;
+            cell.y = y;
+            
         }
 
+        reader.Close();
+
+        cells.Add(cell);
         return cell;
     }
+    public void SetRows(int rows)
+    {
+        this.rows = rows;
+    }
+    public void SaveData()
+    {
+        IDbCommand cmd = conn.CreateCommand();
+        cmd.CommandText = "UPDATE saved_games SET size = " + rows + ", money = " + GameManager._GM.GetMoney() + " WHERE id_savedgame = " + user.id_savedGame + ";";
+        reader = cmd.ExecuteReader();
+        reader.Close(); // UPDATE money and row size
 
+
+        foreach(cell c in cells)
+        {
+            cmd.CommandText = "SELECT COUNT(*) > 0 FROM savedgames_cells WHERE id_savedgame_cell = " + user.id + " ;";
+            reader = cmd.ExecuteReader();
+            reader.Read();
+            if (reader.GetBoolean(0))
+            {
+                reader.Close();
+                //Update Cell
+                cmd.CommandText = "UPDATE savedgames_cells SET time = " + (int)c.time + ", id_plant = " + c.id_plant + " WHERE id_savedgame_cell = " + user.id + " ;";
+                Debug.Log(cmd.CommandText);
+                reader = cmd.ExecuteReader();
+                reader.Close();
+            }
+            else
+            {
+                reader.Close();
+                //Create cell
+                cmd.CommandText = "INSERT INTO savedgames_cells ( x, y, time, id_plant, id_savedgame) VALUES ( " + c.x + " , " + c.y + ", " + (int)c.time + ", " + c.id_plant + ", " + user.id_savedGame + ");";
+                Debug.Log(cmd.CommandText);
+                reader = cmd.ExecuteReader();
+                reader.Close();
+
+            }
+
+
+
+        }
+
+        Debug.Log("Todo Guardado");
+    }
 }

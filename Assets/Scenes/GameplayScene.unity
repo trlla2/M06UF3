@@ -643,8 +643,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 904140517}
   m_HandleRect: {fileID: 904140516}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1500,7 +1500,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 488375110}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.28417426
+  m_Size: 0.3585493
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1883,7 +1883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy Cells
+  m_text: ' Buy Cells 20'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3187,7 +3187,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 454212246}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3393,6 +3393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bfd83c95f7f644a9e730a25e2fb22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startMoney: 25
+  startRowCell: 1
 --- !u!4 &1843546188
 Transform:
   m_ObjectHideFlags: 0
@@ -3812,7 +3814,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 61.2
+  m_fontSize: 72
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4014,7 +4016,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 60117191}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.8915289
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -6,6 +6,8 @@ public class ExitButton : MonoBehaviour
 {
     public void Exit()
     {
-       Application.Quit();
+        DataBase.DB.SaveData();
+
+        Application.Quit();
     }
 }

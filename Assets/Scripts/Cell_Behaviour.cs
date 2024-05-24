@@ -28,7 +28,7 @@ public class Cell_Behaviour : MonoBehaviour
 
         if(c.id_plant != 0)
         {
-            c.id_plant = idGrowingPlant;
+            idGrowingPlant = c.id_plant;
             cellText.text = DataBase.DB.plants[idGrowingPlant].name;
             if (c.time > 0)
             {
@@ -54,11 +54,20 @@ public class Cell_Behaviour : MonoBehaviour
 
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if (isGrowing)
         {
             growingTime -= Time.deltaTime;
+
+            //Update Cell     LO SIENTO POR EL FOREACH EN EL UPDATE S K NO ME OCURRE OTRA MANERA Y NO TENGO TIEMPO :(
+            foreach(cell cell in DataBase.DB.cells)
+            {
+                if(cell.id == cellID)
+                {
+                    cell.time = growingTime;
+                }
+            }
             
 
             if (growingTime < 0) 
@@ -74,6 +83,7 @@ public class Cell_Behaviour : MonoBehaviour
     {
         position.x = x;
         position.y = y;
+
     }
 
     public void OnClick()
@@ -83,10 +93,10 @@ public class Cell_Behaviour : MonoBehaviour
             if (!isCollectible)
             {
                 idGrowingPlant = GameManager._GM.GetHoldingPlantId();
-                if (DataBase.DB.userPlants[idGrowingPlant].quantity > 0)
+                if (DataBase.DB.plants[idGrowingPlant].quantity > 0)
                 {
                     cellImage.color = new Color(1, 1, 0);
-                    DataBase.DB.userPlants[idGrowingPlant].quantity--;
+                    DataBase.DB.plants[idGrowingPlant].quantity--;
                     growingTime = DataBase.DB.plants[idGrowingPlant].time;
                     cellText.text = DataBase.DB.plants[idGrowingPlant].name;
                     isGrowing = true;
@@ -98,8 +108,18 @@ public class Cell_Behaviour : MonoBehaviour
                 cellImage.color = new Color(1, 1, 1);
                 cellText.text = "Empty";
                 isCollectible = false;
+                idGrowingPlant = 0;
             }
-       }
+
+            //UPDATE IDPLANT
+            foreach (cell cell in DataBase.DB.cells)
+            {
+                if (cell.id == cellID)
+                {
+                    cell.id_plant = idGrowingPlant;
+                }
+            }
+        }
        
     }
 }

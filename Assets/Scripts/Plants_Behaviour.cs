@@ -12,7 +12,7 @@ public class Plants_Behaviour : MonoBehaviour
     private int plantsCount;
     private void Start()
     {
-        plantsCount = DataBase.DB.userPlants.Count;
+        plantsCount = DataBase.DB.plants.Count;
         for (int i = 0; i < plantsCount; i++)
         {
             GameObject Plant = Instantiate(PlantPrefab, transform);
