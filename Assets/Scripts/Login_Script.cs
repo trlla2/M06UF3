@@ -49,15 +49,32 @@ public class Login_Script : MonoBehaviour
     private void RegisterButtonClicked()
     {
         //Check if inputs are ok
-        if (registerUserText.text.ToString() != "" && registerPasswordText.text.ToString() != "" && registerRePasswordText.text.ToString() != "" && registerPasswordText.text.ToString() == registerRePasswordText.text.ToString())
+        if (registerUserText.text.ToString() != "" && registerPasswordText.text.ToString() != "" && registerRePasswordText.text.ToString() != "" )
         {
-            if (!DataBase.DB.GetUser(registerUserText.text.ToString())){
-                DataBase.DB.RegisterUser(registerUserText.text.ToString(), registerPasswordText.text.ToString());
-                SceneManager.LoadScene(0);
+            string registerUser = registerUserText.text.ToString().Trim();
+            string registerPassword = registerPasswordText.text.ToString().Trim();
+            string registerRePassword = registerRePasswordText.text.ToString().Trim();
+            if(registerPassword == registerRePassword)
+            {
+                if (!DataBase.DB.GetUser(registerUser))
+                {
+                    DataBase.DB.RegisterUser(registerUser, registerPassword);
+                    SceneManager.LoadScene(0);
+                }
+                else
+                {
+                    Debug.Log("Register failed");
+                    registerUserText.text = "";
+                    registerPasswordText.text = "";
+                    registerRePasswordText.text = "";
+                }
             }
             else
             {
                 Debug.Log("Register failed");
+                registerUserText.text = "";
+                registerPasswordText.text = "";
+                registerRePasswordText.text = "";
             }
         }
         else
@@ -74,7 +91,9 @@ public class Login_Script : MonoBehaviour
         //Check if inputs are ok
         if (loginUserText.text.ToString() != "" && loginPasswordText.text.ToString() != "")
         {
-            if (DataBase.DB.LoginUser(loginUserText.text.ToString(), loginPasswordText.text.ToString()))
+            string loginUser = loginUserText.text.ToString().Trim();
+            string loginPassword = loginPasswordText.text.ToString().Trim();
+            if (DataBase.DB.LoginUser(loginUser, loginPassword))
             {
                 //Load Game
                 Debug.Log("Funca");
