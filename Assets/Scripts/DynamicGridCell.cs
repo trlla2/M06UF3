@@ -30,6 +30,8 @@ public class DynamicGridCell : MonoBehaviour
 
     void Start()
     {
+        rows = DataBase.DB.GetRows(); //get ROWS del player
+
         for (int x = 0; x < rows; x++)
         {
             for (int y = 0; y < columns; y++)

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Login_Script : MonoBehaviour
@@ -52,6 +54,7 @@ public class Login_Script : MonoBehaviour
         {
             if (!DataBase.DB.GetUser(registerUserText.text.ToString())){
                 DataBase.DB.RegisterUser(registerUserText.text.ToString(), registerPasswordText.text.ToString());
+                SceneManager.LoadScene(0);
             }
             else
             {
@@ -61,6 +64,9 @@ public class Login_Script : MonoBehaviour
         else
         {
             Debug.Log("Register failed");
+            registerUserText.text = "";
+            registerPasswordText.text = "";
+            registerRePasswordText.text = "";
         }
     }
 
@@ -73,11 +79,12 @@ public class Login_Script : MonoBehaviour
             {
                 //Load Game
                 Debug.Log("Funca");
+                SceneManager.LoadScene(1);
             }
             else
             {
                 //Delete Text
-                Debug.Log("aaaa");
+                SceneManager.LoadScene(0);
             }
         }
     }

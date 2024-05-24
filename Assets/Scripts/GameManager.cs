@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        //current money = DataBase.DB.getUserMoney();
+        currentMoney = DataBase.DB.GetMoney();
     }
     private void LateUpdate()
     {

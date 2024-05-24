@@ -22,12 +22,15 @@ public class PlantShop_Behavior : MonoBehaviour
     public void SetIdPlant(int id)
     {
         idPlant = id;
+        Debug.Log(idPlant);
+        
     }
     public void BuyPlant() 
     {
         if(GameManager._GM.GetMoney() >= DataBase.DB.plants[idPlant].buy)
         {
-            DataBase.DB.plants[idPlant].quantity++;
+            Debug.Log(DataBase.DB.userPlants);
+            DataBase.DB.userPlants[idPlant].quantity++;
             GameManager._GM.BuyThings(DataBase.DB.plants[idPlant].buy);
         }
     }
