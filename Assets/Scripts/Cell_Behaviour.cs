@@ -63,7 +63,7 @@ public class Cell_Behaviour : MonoBehaviour
             //Update Cell     LO SIENTO POR EL FOREACH EN EL UPDATE S K NO ME OCURRE OTRA MANERA Y NO TENGO TIEMPO :(
             foreach(cell cell in DataBase.DB.cells)
             {
-                if(cell.id == cellID)
+                if (cell.x == position.x && cell.y == position.y)
                 {
                     cell.time = growingTime;
                 }
@@ -83,7 +83,7 @@ public class Cell_Behaviour : MonoBehaviour
     {
         position.x = x;
         position.y = y;
-
+        Debug.Log(position.x + ", " + position.y);
     }
 
     public void OnClick()
@@ -114,7 +114,7 @@ public class Cell_Behaviour : MonoBehaviour
             //UPDATE IDPLANT
             foreach (cell cell in DataBase.DB.cells)
             {
-                if (cell.id == cellID)
+                if (cell.x == position.x && cell.y == position.y)
                 {
                     cell.id_plant = idGrowingPlant;
                 }
