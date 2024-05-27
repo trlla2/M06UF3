@@ -317,39 +317,26 @@ public class DataBase : MonoBehaviour
     }
     public void SaveData()
     {
+        Debug.Log("Cells " + cells.Count);
+
         IDbCommand cmd = conn.CreateCommand();
         cmd.CommandText = "UPDATE saved_games SET size = " + rows + ", money = " + GameManager._GM.GetMoney() + " WHERE id_savedgame = " + user.id_savedGame + ";";
         reader = cmd.ExecuteReader();
         reader.Close(); // UPDATE money and row size
 
+        //Delete cell
+        cmd.CommandText = "DELETE FROM savedgames_cells WHERE id_savedgame_cell = " + user.id + " ;";
+        Debug.Log(cmd.CommandText);
+        reader = cmd.ExecuteReader();
+        reader.Close();
 
-        foreach(cell c in cells)
+        foreach (cell c in cells)
         {
-            cmd.CommandText = "SELECT COUNT(*) > 0 FROM savedgames_cells WHERE id_savedgame_cell = " + user.id + " ;";
-            reader = cmd.ExecuteReader();
-            reader.Read();
-            if (reader.GetBoolean(0))
-            {
-                reader.Close();
-                //Update Cell
-                cmd.CommandText = "UPDATE savedgames_cells SET time = " + (int)c.time + ", id_plant = " + c.id_plant + " WHERE id_savedgame_cell = " + user.id + " ;";
-                Debug.Log(cmd.CommandText);
-                reader = cmd.ExecuteReader();
-                reader.Close();
-            }
-            else
-            {
-                reader.Close();
                 //Create cell
-                cmd.CommandText = "INSERT INTO savedgames_cells ( x, y, time, id_plant, id_savedgame) VALUES ( " + c.x + " , " + c.y + ", " + (int)c.time + ", " + c.id_plant + ", " + user.id_savedGame + ");";
-                Debug.Log(cmd.CommandText);
-                reader = cmd.ExecuteReader();
-                reader.Close();
-
-            }
-
-
-
+            cmd.CommandText = "INSERT INTO savedgames_cells ( x, y, time, id_plant, id_savedgame) VALUES ( " + c.x + " , " + c.y + ", " + (int)c.time + ", " + c.id_plant + ", " + user.id_savedGame + ");";
+            Debug.Log(cmd.CommandText);
+            reader = cmd.ExecuteReader();
+            reader.Close();
         }
 
         Debug.Log("Todo Guardado");
